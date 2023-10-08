@@ -39,7 +39,11 @@ export const GlobalCardShopProvider = ({ children }: any) => {
   const addToCard = (item: addToShopModel) => {
     //first of all find existing item
     const existingItem = data.cardItem.find((product) => product.id == item.id);
-    let updatedList = initialValues;
+    let updatedList = {
+      ...data,
+      totalAmount: ++data.totalAmount,
+      totalPrice: data.totalPrice + item.price,
+    };
     //check existing item
     if (existingItem) {
       const findItem = data.cardItem.findIndex(
@@ -54,14 +58,12 @@ export const GlobalCardShopProvider = ({ children }: any) => {
       };
       // set into new object
       updatedList = {
-        totalAmount: ++data.totalAmount,
-        totalPrice: data.totalPrice + item.price,
+        ...updatedList,
         cardItem: updatedCardList,
       };
     } else {
       updatedList = {
-        totalAmount: ++data.totalAmount,
-        totalPrice: data.totalPrice + item.price,
+        ...updatedList,
         cardItem: [
           ...data.cardItem,
           {

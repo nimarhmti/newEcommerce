@@ -39,9 +39,6 @@ const initialValues = {
 export const GlobalProductsContextProvider = ({ children }: any) => {
   const [data, setData] = useState<datatype>([]);
   const [filter, setFilter] = useState(initialValues);
-  useEffect(() => {
-    setData(sortbyPrice(data, filter.sortBy));
-  }, [filter.sortBy, data]);
 
   return (
     <GlobalProductsContext.Provider
