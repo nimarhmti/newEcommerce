@@ -33,7 +33,7 @@ const GlobalProductsContext = createContext<contextProps>({
 });
 const initialValues = {
   query: "",
-  sortBy: "NONE",
+  sortBy: "",
 };
 
 export const GlobalProductsContextProvider = ({ children }: any) => {
@@ -41,9 +41,8 @@ export const GlobalProductsContextProvider = ({ children }: any) => {
   const [filter, setFilter] = useState(initialValues);
   useEffect(() => {
     setData(sortbyPrice(data, filter.sortBy));
-  }, [filter]);
+  }, [filter.sortBy, data]);
 
-  console.log(filter.sortBy);
   return (
     <GlobalProductsContext.Provider
       value={{ setData, data, setFilter, filter }}
