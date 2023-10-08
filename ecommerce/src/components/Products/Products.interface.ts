@@ -15,4 +15,4 @@ interface rateModel {
   rate: number;
 }
 
-export type eventType = FormEvent<HTMLInputElement>;
+export type eventType = FormEvent<HTMLInputElement | HTMLSelectElement>;

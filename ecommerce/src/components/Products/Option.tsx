@@ -2,6 +2,7 @@ import React from "react";
 import { SortIcon } from "../../assets/icons/SortIcon";
 import { useGlobalProducts } from "../../context/ProductsSection";
 import { eventType } from "./Products.interface";
+import { sortKey } from "../../keys/enums";
 
 export const Option = () => {
   const { setFilter, filter } = useGlobalProducts();
@@ -10,7 +11,7 @@ export const Option = () => {
     setFilter((pre) => ({ ...pre, [name]: value }));
   };
   return (
-    <div className="col-sm-12 col-md-6 d-flex justify-content-between p-1">
+    <div className="col-sm-12 col-md-6 d-flex justify-content-between p-1 gap-1">
       <input
         type="text"
         name="query"
@@ -22,35 +23,19 @@ export const Option = () => {
         onChange={onChangeHandler}
       />
 
-      <div className="dropdown">
-        <a
-          className="btn btn-secondary dropdown-toggle"
-          href="#"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Dropdown link
-        </a>
-
-        <ul className="dropdown-menu">
-          <li>
-            <a className="dropdown-item" href="#">
-              Action
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Another action
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Something else here
-            </a>
-          </li>
-        </ul>
-      </div>
+      <select
+        className="form-select"
+        aria-label="Default select example"
+        placeholder="sort by"
+        name="sortBy"
+        defaultValue={sortKey.NONE}
+        onChange={onChangeHandler}
+        value={filter.sortBy}
+      >
+        <option value={sortKey.NONE}>{sortKey.NONE}</option>
+        <option value={sortKey.ASCENDING}>{sortKey.ASCENDING}</option>
+        <option value={sortKey.DESCENDING}>{sortKey.DESCENDING}</option>
+      </select>
     </div>
   );
 };

@@ -4,9 +4,11 @@ import {
   Dispatch,
   SetStateAction,
   useState,
-  useMemo,
+  useEffect,
 } from "react";
 import { productModel } from "../components/Products/Products.interface";
+import { sortKey } from "../keys/enums";
+import { sortbyPrice } from "../utils/Sort";
 
 type datatype = productModel[] | [];
 type filterType = {
@@ -24,18 +26,24 @@ const GlobalProductsContext = createContext<contextProps>({
   data: [],
   filter: {
     query: "",
-    sortBy: "",
+    sortBy: sortKey.NONE,
   },
   setData: (): productModel[] => [],
   setFilter: (): filterType => ({ query: "", sortBy: "" }),
 });
+const initialValues = {
+  query: "",
+  sortBy: "NONE",
+};
 
 export const GlobalProductsContextProvider = ({ children }: any) => {
   const [data, setData] = useState<datatype>([]);
-  const [filter, setFilter] = useState({
-    query: "",
-    sortBy: "",
-  });
+  const [filter, setFilter] = useState(initialValues);
+  useEffect(() => {
+    setData(sortbyPrice(data, filter.sortBy));
+  }, [filter]);
+
+  console.log(filter.sortBy);
   return (
     <GlobalProductsContext.Provider
       value={{ setData, data, setFilter, filter }}
