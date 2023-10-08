@@ -9,6 +9,7 @@ import {
 import { productModel } from "../components/Products/Products.interface";
 import { sortKey } from "../keys/enums";
 import { sortbyPrice } from "../utils/Sort";
+import { useFetch } from "../hooks/useFetch";
 
 type datatype = productModel[] | [];
 type filterType = {
@@ -18,7 +19,6 @@ type filterType = {
 interface contextProps {
   data: datatype;
   filter: filterType;
-  setData: Dispatch<SetStateAction<productModel[]>>;
   setFilter: Dispatch<SetStateAction<filterType>>;
 }
 
@@ -28,7 +28,6 @@ const GlobalProductsContext = createContext<contextProps>({
     query: "",
     sortBy: sortKey.NONE,
   },
-  setData: (): productModel[] => [],
   setFilter: (): filterType => ({ query: "", sortBy: "" }),
 });
 const initialValues = {
@@ -39,11 +38,13 @@ const initialValues = {
 export const GlobalProductsContextProvider = ({ children }: any) => {
   const [data, setData] = useState<datatype>([]);
   const [filter, setFilter] = useState(initialValues);
+  const { data: products } = useFetch("/products");
+  useEffect(() => {
+    setData(products);
+  }, [products]);
 
   return (
-    <GlobalProductsContext.Provider
-      value={{ setData, data, setFilter, filter }}
-    >
+    <GlobalProductsContext.Provider value={{ data, setFilter, filter }}>
       {children}
     </GlobalProductsContext.Provider>
   );

@@ -4,11 +4,11 @@ import { useFetch } from "./hooks/useFetch";
 import { useGlobalProducts } from "./context/ProductsSection";
 
 function App() {
-  const { data, setData } = useGlobalProducts();
-  const { data: products } = useFetch("/products");
-  useEffect(() => {
-    setData(products);
-  }, [products]);
+  // const { data, setData } = useGlobalProducts();
+  // const { data: products } = useFetch("/products");
+  // useEffect(() => {
+  //   setData(products);
+  // }, [products]);
   return <Router />;
 }
 
