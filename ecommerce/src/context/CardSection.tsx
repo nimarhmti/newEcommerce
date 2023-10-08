@@ -76,6 +76,7 @@ export const GlobalCardShopProvider = ({ children }: any) => {
     }
     setDate(updatedList);
   };
+  const num = 12.34;
 
   // remove from card function
   const removeFromCard = (id: number, ItemPrice: number) => {
@@ -85,7 +86,8 @@ export const GlobalCardShopProvider = ({ children }: any) => {
       let updatedList: CardModel = {
         ...data,
         totalAmount: --data.totalAmount,
-        totalPrice: data.totalPrice - ItemPrice,
+        totalPrice:
+          Number(data.totalPrice.toFixed(2)) - Number(ItemPrice.toFixed(2)),
       };
       const findIndexItem = data.cardItem.findIndex(
         (product) => product.id == id
