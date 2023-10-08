@@ -1,3 +1,4 @@
+import React from "react";
 import { ProductsList } from "../../components/Products/ProductsList";
 import { Option } from "../../components/Products/Option";
 

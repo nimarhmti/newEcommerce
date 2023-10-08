@@ -4,11 +4,14 @@ import App from "./App.tsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter } from "react-router-dom";
+import { GlobalProductsContextProvider } from "./context/ProductsSection.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <GlobalProductsContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </GlobalProductsContextProvider>
   </React.StrictMode>
 );

@@ -3,13 +3,15 @@ import { ProductItem } from "../ui/Products/ProductItem";
 import { useFetch } from "../../hooks/useFetch";
 import { LoadingScreen } from "../ui/Loading/Loading";
 import { productModel } from "./Products.interface";
+import { useGlobalProducts } from "../../context/ProductsSection";
+import { searchByName } from "../../utils/search";
 
 export const ProductsList = () => {
-  const { data, isLoading } = useFetch("/products");
-  if (isLoading) return <LoadingScreen />;
+  const { filter, data: products } = useGlobalProducts();
+
   return (
     <div className="row d-flex align-items-center justify-content-center gap-3">
-      {data.map((item: productModel) => (
+      {searchByName(products, filter.query)?.map((item: productModel) => (
         <ProductItem
           id={item?.id}
           image={item.image}
