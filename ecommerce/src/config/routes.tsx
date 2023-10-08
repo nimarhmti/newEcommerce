@@ -16,6 +16,18 @@ export default function Router() {
       element: <MainPage />,
       children: [
         {
+          element: <Navigate to="/products" replace />,
+          index: true,
+        },
+        {
+          path: "cards",
+          element: <ShoppingPage />,
+        },
+        {
+          path: "products",
+          element: <Products />,
+        },
+        {
           path: "*",
           element: <Navigate to="404" />,
         },
@@ -26,16 +38,13 @@ export default function Router() {
       ],
     },
     {
-      path: "cards",
-      element: <Products />,
-    },
-    {
       path: "*",
       element: <PageNotFound />,
     },
   ]);
 }
 
-const MainPage = Loadable(lazy(() => import("../page/homePage/HomePage")));
+const MainPage = Loadable(lazy(() => import("../components/ui/layout/Layout")));
 const PageNotFound = Loadable(lazy(() => import("../page/404/Page404")));
-const Products = Loadable(lazy(() => import("../page/Card/Cards")));
+const Products = Loadable(lazy(() => import("../page/Products/Products")));
+const ShoppingPage = Loadable(lazy(() => import("../page/Shop/Shop")));
